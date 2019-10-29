@@ -89,7 +89,6 @@ def odomlistener():
     while not rospy.is_shutdown():
         # 4.3 and 2.1 from blue
         trackandland(1,0)
-        
 
         rate.sleep()	
 
@@ -128,38 +127,38 @@ def trackandland(x,y):
 
         if global_marker_center[0] != 0 and global_marker_center[1] != 0:
 
-            print('In the testing loop!')
-            xcoord = global_marker_center[0]
-            ycoord = global_marker_center[1]
+            # print('In the testing loop!')
+            # xcoord = global_marker_center[0]
+            # ycoord = global_marker_center[1]
 
-            xdes = 320/2
-            ydes = 240/2
+            # xdes = 320/2
+            # ydes = 240/2
         
-            xvec = 0.05*(xdes - xcoord)
-            yvec = 0.05*(ydes - ycoord)
+            # xvec = 0.05*(xdes - xcoord)
+            # yvec = 0.05*(ydes - ycoord)
 
-            print("xvec is " + str(xvec))
-            print("yvec is " + str(yvec))
+            # print("xvec is " + str(xvec))
+            # print("yvec is " + str(yvec))
 
-            while not (xdes - 5 < xcoord < xdes + 5):
-                moveto_body(xcoord-xvec,0,0)
+            # while not (xdes - 5 < xcoord < xdes + 5):
+            #     moveto_body(xcoord-xvec,0,0)
 
-            while not (ydes - 5 < ycoord < ydes + 5):
-                moveto_body(0,ycoord-yvec,0)
+            # while not (ydes - 5 < ycoord < ydes + 5):
+            #     moveto_body(0,ycoord-yvec,0)
 
-        # vector2center= global_marker_center- np.array([160,120])
-        # # deg_offsetx= (vector2center[0]/160)*FOVx
-        # # deg_offsety= (vector2center[0]/120)*FOVy
-        # deg_offsets= (vector2center/(np.array([160,120])))*np.array([FOVx,FOVy])
-        # marker_loc=np.tan(deg_offsets*np.pi/180)*global_pos.position.z
+            vector2center= global_marker_center- np.array([160,120])
+            # deg_offsetx= (vector2center[0]/160)*FOVx
+            # deg_offsety= (vector2center[0]/120)*FOVy
+            deg_offsets= (vector2center/(np.array([160,120])))*np.array([FOVx,FOVy])
+            marker_loc=np.tan(deg_offsets*np.pi/180)*global_pos.position.z
 
-        # if np.linalg.norm(marker_loc)<.1:
-        #     if global_pos.position.z<1.2:
-        #         pub_land.publish()
-        #     moveto_body(0,0,-.5)
-        # else:
-        #     moveto_body(.8*marker_loc[0],.8*marker_loc[1],0)
+            if np.linalg.norm(marker_loc)<.1:
 
+                if global_pos.position.z>1.2:
+                    pub_land.publish()
+                    # moveto_body(0,0,-.5)
+            else:
+                moveto_body(.8*marker_loc[0],.8*marker_loc[1],0)
 
         # pub_land.publish()
 
@@ -282,10 +281,6 @@ def moveto_body(x,y,z):
         print('Landed')
         pub_land.publish()
         islanded=True
-    
-def move_scale(x,y,z):
-    pass
-
     
 
 if __name__ == '__main__':
