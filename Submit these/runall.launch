@@ -1,0 +1,6 @@
+<launch>
+  <!-- <node name="drone_driver" pkg="bebop_driver" type="bebop_node.launch"/> -->
+  	<include file="$(find bebop_driver)/launch/bebop_node.launch"/>
+  	<include file="$(find ddmc)/src/duo3d_driver/launch/duo3d_camera.launch"/>
+  	<node name="findcircles" pkg="ddmc" type="findcircles.py"/>
+</launch>
