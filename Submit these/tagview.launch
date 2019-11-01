@@ -1,0 +1,6 @@
+<launch>
+	<node name="tagstart" pkg="ddmc" type="tag.py" output="screen"/>
+	<node name="rvizlauncher" pkg="rviz" type="rviz"/>
+	<arg name="path" default="($find ddmc)"/>
+	<node name="extractor" pkg="rosbag" type="play" args="/home/vdorbala/bebop_ws/src/ddmc/scripts/Bullseye.bag -l -r 2"/>
+</launch>
